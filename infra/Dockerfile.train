@@ -1,0 +1,10 @@
+# SageMaker training image (bring-your-own-container, script mode). SageMaker runs `docker run <image> train`.
+FROM python:3.12-slim
+RUN apt-get update && apt-get install -y --no-install-recommends libgomp1 && rm -rf /var/lib/apt/lists/*
+RUN useradd --create-home bijuli
+WORKDIR /opt/program
+COPY requirements.txt .
+RUN pip install --no-cache-dir -r requirements.txt
+COPY bijuli ./bijuli
+ENV PYTHONPATH=/opt/program
+ENTRYPOINT ["python", "-m", "bijuli.aws.train_entry"]

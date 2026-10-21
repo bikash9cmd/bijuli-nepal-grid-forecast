@@ -1,0 +1,1838 @@
+[
+  {
+    "policy": "Train once, never retrain",
+    "mape": 0.035875300020914165,
+    "worst_week_mape": 0.08010074568716423,
+    "cost_npr_m_per_day": 4.979668687898697,
+    "trainings": 1,
+    "promotions": 0,
+    "rollbacks": 0,
+    "days_refused": 0,
+    "days_on_buggy_model": 0,
+    "events": [
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "registered",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "promoted",
+        "reason": "initial model"
+      }
+    ]
+  },
+  {
+    "policy": "Retrain every 4 weeks, auto-deploy",
+    "mape": 0.03420552108516561,
+    "worst_week_mape": 0.098284223410313,
+    "cost_npr_m_per_day": 4.584805503961078,
+    "trainings": 28,
+    "promotions": 27,
+    "rollbacks": 0,
+    "days_refused": 0,
+    "days_on_buggy_model": 28,
+    "events": [
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "registered",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "promoted",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-29",
+        "version": "v002",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-07-29",
+        "version": "v002",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-08-26",
+        "version": "v003",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-08-26",
+        "version": "v003",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-09-23",
+        "version": "v004",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-09-23",
+        "version": "v004",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-10-21",
+        "version": "v005",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-10-21",
+        "version": "v005",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-11-18",
+        "version": "v006",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-11-18",
+        "version": "v006",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-12-16",
+        "version": "v007",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-12-16",
+        "version": "v007",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-13",
+        "version": "v008",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-13",
+        "version": "v008",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-02-10",
+        "version": "v009",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-02-10",
+        "version": "v009",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-03-09",
+        "version": "v010",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-03-09",
+        "version": "v010",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-04-06",
+        "version": "v011",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-04-06",
+        "version": "v011",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-05-04",
+        "version": "v012",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-05-04",
+        "version": "v012",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-06-01",
+        "version": "v013",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-06-01",
+        "version": "v013",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-06-29",
+        "version": "v014",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-06-29",
+        "version": "v014",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-07-27",
+        "version": "v015",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-07-27",
+        "version": "v015",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-08-24",
+        "version": "v016",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-08-24",
+        "version": "v016",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-09-21",
+        "version": "v017",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-09-21",
+        "version": "v017",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-10-19",
+        "version": "v018",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-10-19",
+        "version": "v018",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-11-16",
+        "version": "v019",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-11-16",
+        "version": "v019",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-12-14",
+        "version": "v020",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-12-14",
+        "version": "v020",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-01-11",
+        "version": "v021",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-01-11",
+        "version": "v021",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-02-08",
+        "version": "v022",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-02-08",
+        "version": "v022",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-03-08",
+        "version": "v023",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-03-08",
+        "version": "v023",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-04-05",
+        "version": "v024",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-04-05",
+        "version": "v024",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-05-03",
+        "version": "v025",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-05-03",
+        "version": "v025",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-05-31",
+        "version": "v026",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-05-31",
+        "version": "v026",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-06-28",
+        "version": "v027",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-06-28",
+        "version": "v027",
+        "event": "promoted",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-07-26",
+        "version": "v028",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-07-26",
+        "version": "v028",
+        "event": "promoted",
+        "reason": "schedule"
+      }
+    ]
+  },
+  {
+    "policy": "Retrain every 4 weeks, gated rollout",
+    "mape": 0.03359258758596319,
+    "worst_week_mape": 0.07602172336449534,
+    "cost_npr_m_per_day": 4.52123801051169,
+    "trainings": 42,
+    "promotions": 9,
+    "rollbacks": 1,
+    "days_refused": 0,
+    "days_on_buggy_model": 0,
+    "events": [
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "registered",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "promoted",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-29",
+        "version": "v002",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-07-29",
+        "version": "v002",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-08-06",
+        "version": "v002",
+        "event": "promoted",
+        "reason": "shadow 0.037 vs champion 0.042"
+      },
+      {
+        "when": "2023-09-23",
+        "version": "v003",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-09-23",
+        "version": "v003",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-10-01",
+        "version": "v003",
+        "event": "promoted",
+        "reason": "shadow 0.042 vs champion 0.052"
+      },
+      {
+        "when": "2023-12-16",
+        "version": "v004",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-12-16",
+        "version": "v004",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-12-24",
+        "version": "v004",
+        "event": "rejected",
+        "reason": "shadow 0.019 vs champion 0.019"
+      },
+      {
+        "when": "2024-01-13",
+        "version": "v005",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-13",
+        "version": "v005",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-21",
+        "version": "v005",
+        "event": "promoted",
+        "reason": "shadow 0.020 vs champion 0.035"
+      },
+      {
+        "when": "2024-02-10",
+        "version": "v006",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-02-10",
+        "version": "v006",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-02-18",
+        "version": "v006",
+        "event": "rejected",
+        "reason": "shadow 0.022 vs champion 0.021"
+      },
+      {
+        "when": "2024-08-24",
+        "version": "v007",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-08-24",
+        "version": "v007",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-09-01",
+        "version": "v007",
+        "event": "rejected",
+        "reason": "shadow 0.029 vs champion 0.024"
+      },
+      {
+        "when": "2024-09-21",
+        "version": "v008",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-09-21",
+        "version": "v008",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-09-29",
+        "version": "v008",
+        "event": "rejected",
+        "reason": "shadow 0.054 vs champion 0.042"
+      },
+      {
+        "when": "2024-12-14",
+        "version": "v009",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-12-14",
+        "version": "v009",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-12-22",
+        "version": "v009",
+        "event": "promoted",
+        "reason": "shadow 0.022 vs champion 0.029"
+      },
+      {
+        "when": "2025-01-11",
+        "version": "v010",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-01-11",
+        "version": "v010",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-01-19",
+        "version": "v010",
+        "event": "promoted",
+        "reason": "shadow 0.018 vs champion 0.034"
+      },
+      {
+        "when": "2025-01-24",
+        "version": "v010",
+        "event": "rolled_back",
+        "reason": "live MAPE 0.026 vs previous champion 0.018"
+      },
+      {
+        "when": "2025-02-08",
+        "version": "v011",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-02-08",
+        "version": "v011",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-02-16",
+        "version": "v011",
+        "event": "promoted",
+        "reason": "shadow 0.035 vs champion 0.044"
+      },
+      {
+        "when": "2025-03-08",
+        "version": "v012",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-03-08",
+        "version": "v012",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-03-16",
+        "version": "v012",
+        "event": "promoted",
+        "reason": "shadow 0.040 vs champion 0.043"
+      },
+      {
+        "when": "2025-04-05",
+        "version": "v013",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-04-05",
+        "version": "v013",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-04-13",
+        "version": "v013",
+        "event": "rejected",
+        "reason": "shadow 0.047 vs champion 0.048"
+      },
+      {
+        "when": "2025-05-03",
+        "version": "v014",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-05-03",
+        "version": "v014",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-05-11",
+        "version": "v014",
+        "event": "promoted",
+        "reason": "shadow 0.052 vs champion 0.064"
+      },
+      {
+        "when": "2025-05-31",
+        "version": "v015",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-05-31",
+        "version": "v015",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-06-08",
+        "version": "v015",
+        "event": "promoted",
+        "reason": "shadow 0.027 vs champion 0.041"
+      }
+    ]
+  },
+  {
+    "policy": "Retrain on drift only, gated rollout",
+    "mape": 0.03426811754121879,
+    "worst_week_mape": 0.0796533104223027,
+    "cost_npr_m_per_day": 4.494572984192985,
+    "trainings": 50,
+    "promotions": 12,
+    "rollbacks": 1,
+    "days_refused": 0,
+    "days_on_buggy_model": 0,
+    "events": [
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "registered",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "promoted",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-08-03",
+        "version": "v002",
+        "event": "registered",
+        "reason": "7-day MAPE 0.053 > 1.5x promised 0.033"
+      },
+      {
+        "when": "2023-08-03",
+        "version": "v002",
+        "event": "shadow",
+        "reason": "7-day MAPE 0.053 > 1.5x promised 0.033"
+      },
+      {
+        "when": "2023-08-11",
+        "version": "v002",
+        "event": "promoted",
+        "reason": "shadow 0.028 vs champion 0.035"
+      },
+      {
+        "when": "2023-09-03",
+        "version": "v003",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2023-09-03",
+        "version": "v003",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2023-09-11",
+        "version": "v003",
+        "event": "rejected",
+        "reason": "shadow 0.049 vs champion 0.047"
+      },
+      {
+        "when": "2023-10-03",
+        "version": "v004",
+        "event": "registered",
+        "reason": "7-day MAPE 0.050 > 1.5x promised 0.033"
+      },
+      {
+        "when": "2023-10-03",
+        "version": "v004",
+        "event": "shadow",
+        "reason": "7-day MAPE 0.050 > 1.5x promised 0.033"
+      },
+      {
+        "when": "2023-10-11",
+        "version": "v004",
+        "event": "promoted",
+        "reason": "shadow 0.021 vs champion 0.031"
+      },
+      {
+        "when": "2023-10-16",
+        "version": "v004",
+        "event": "rolled_back",
+        "reason": "live MAPE 0.033 vs previous champion 0.011"
+      },
+      {
+        "when": "2024-01-17",
+        "version": "v005",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.20)"
+      },
+      {
+        "when": "2024-01-17",
+        "version": "v005",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.20)"
+      },
+      {
+        "when": "2024-01-25",
+        "version": "v005",
+        "event": "promoted",
+        "reason": "shadow 0.019 vs champion 0.033"
+      },
+      {
+        "when": "2024-02-11",
+        "version": "v006",
+        "event": "registered",
+        "reason": "7-day MAPE 0.034 > 1.5x promised 0.021"
+      },
+      {
+        "when": "2024-02-11",
+        "version": "v006",
+        "event": "shadow",
+        "reason": "7-day MAPE 0.034 > 1.5x promised 0.021"
+      },
+      {
+        "when": "2024-02-19",
+        "version": "v006",
+        "event": "rejected",
+        "reason": "shadow 0.020 vs champion 0.016"
+      },
+      {
+        "when": "2024-04-08",
+        "version": "v007",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.24)"
+      },
+      {
+        "when": "2024-04-08",
+        "version": "v007",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.24)"
+      },
+      {
+        "when": "2024-04-16",
+        "version": "v007",
+        "event": "rejected",
+        "reason": "shadow 0.021 vs champion 0.021"
+      },
+      {
+        "when": "2024-05-30",
+        "version": "v008",
+        "event": "registered",
+        "reason": "7-day MAPE 0.035 > 1.5x promised 0.021"
+      },
+      {
+        "when": "2024-05-30",
+        "version": "v008",
+        "event": "shadow",
+        "reason": "7-day MAPE 0.035 > 1.5x promised 0.021"
+      },
+      {
+        "when": "2024-06-07",
+        "version": "v008",
+        "event": "promoted",
+        "reason": "shadow 0.037 vs champion 0.051"
+      },
+      {
+        "when": "2024-07-09",
+        "version": "v009",
+        "event": "registered",
+        "reason": "7-day MAPE 0.059 > 1.5x promised 0.037"
+      },
+      {
+        "when": "2024-07-09",
+        "version": "v009",
+        "event": "shadow",
+        "reason": "7-day MAPE 0.059 > 1.5x promised 0.037"
+      },
+      {
+        "when": "2024-07-17",
+        "version": "v009",
+        "event": "rejected",
+        "reason": "shadow 0.043 vs champion 0.041"
+      },
+      {
+        "when": "2024-07-18",
+        "version": "v010",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.20)"
+      },
+      {
+        "when": "2024-07-18",
+        "version": "v010",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.20)"
+      },
+      {
+        "when": "2024-07-26",
+        "version": "v010",
+        "event": "promoted",
+        "reason": "shadow 0.024 vs champion 0.034"
+      },
+      {
+        "when": "2024-08-10",
+        "version": "v011",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.23)"
+      },
+      {
+        "when": "2024-08-10",
+        "version": "v011",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.23)"
+      },
+      {
+        "when": "2024-08-18",
+        "version": "v011",
+        "event": "promoted",
+        "reason": "shadow 0.036 vs champion 0.050"
+      },
+      {
+        "when": "2024-10-01",
+        "version": "v012",
+        "event": "registered",
+        "reason": "7-day MAPE 0.062 > 1.5x promised 0.041"
+      },
+      {
+        "when": "2024-10-01",
+        "version": "v012",
+        "event": "shadow",
+        "reason": "7-day MAPE 0.062 > 1.5x promised 0.041"
+      },
+      {
+        "when": "2024-10-09",
+        "version": "v012",
+        "event": "rejected",
+        "reason": "shadow 0.043 vs champion 0.035"
+      },
+      {
+        "when": "2024-10-11",
+        "version": "v013",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.25)"
+      },
+      {
+        "when": "2024-10-11",
+        "version": "v013",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.25)"
+      },
+      {
+        "when": "2024-10-19",
+        "version": "v013",
+        "event": "promoted",
+        "reason": "shadow 0.087 vs champion 0.088"
+      },
+      {
+        "when": "2024-10-19",
+        "version": "v014",
+        "event": "registered",
+        "reason": "7-day MAPE 0.087 > 1.5x promised 0.040"
+      },
+      {
+        "when": "2024-10-19",
+        "version": "v014",
+        "event": "shadow",
+        "reason": "7-day MAPE 0.087 > 1.5x promised 0.040"
+      },
+      {
+        "when": "2024-10-27",
+        "version": "v014",
+        "event": "rejected",
+        "reason": "shadow 0.045 vs champion 0.046"
+      },
+      {
+        "when": "2025-01-09",
+        "version": "v015",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.20)"
+      },
+      {
+        "when": "2025-01-09",
+        "version": "v015",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.20)"
+      },
+      {
+        "when": "2025-01-17",
+        "version": "v015",
+        "event": "promoted",
+        "reason": "shadow 0.026 vs champion 0.037"
+      },
+      {
+        "when": "2025-03-22",
+        "version": "v016",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2025-03-22",
+        "version": "v016",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2025-03-30",
+        "version": "v016",
+        "event": "promoted",
+        "reason": "shadow 0.022 vs champion 0.037"
+      },
+      {
+        "when": "2025-04-21",
+        "version": "v017",
+        "event": "registered",
+        "reason": "7-day MAPE 0.045 > 1.5x promised 0.027"
+      },
+      {
+        "when": "2025-04-21",
+        "version": "v017",
+        "event": "shadow",
+        "reason": "7-day MAPE 0.045 > 1.5x promised 0.027"
+      },
+      {
+        "when": "2025-04-29",
+        "version": "v017",
+        "event": "promoted",
+        "reason": "shadow 0.038 vs champion 0.040"
+      },
+      {
+        "when": "2025-05-09",
+        "version": "v018",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.25)"
+      },
+      {
+        "when": "2025-05-09",
+        "version": "v018",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.25)"
+      },
+      {
+        "when": "2025-05-17",
+        "version": "v018",
+        "event": "rejected",
+        "reason": "shadow 0.027 vs champion 0.027"
+      },
+      {
+        "when": "2025-05-17",
+        "version": "v019",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2025-05-17",
+        "version": "v019",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2025-05-25",
+        "version": "v019",
+        "event": "promoted",
+        "reason": "shadow 0.031 vs champion 0.039"
+      },
+      {
+        "when": "2025-08-13",
+        "version": "v020",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2025-08-13",
+        "version": "v020",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2025-08-21",
+        "version": "v020",
+        "event": "promoted",
+        "reason": "shadow 0.041 vs champion 0.044"
+      }
+    ]
+  },
+  {
+    "policy": "Every 4 weeks or on bias drift, gated (Bijuli)",
+    "mape": 0.03392767039265963,
+    "worst_week_mape": 0.0745218620824346,
+    "cost_npr_m_per_day": 4.532342840308003,
+    "trainings": 61,
+    "promotions": 15,
+    "rollbacks": 2,
+    "days_refused": 0,
+    "days_on_buggy_model": 5,
+    "events": [
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "registered",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "promoted",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-29",
+        "version": "v002",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-07-29",
+        "version": "v002",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-08-06",
+        "version": "v002",
+        "event": "promoted",
+        "reason": "shadow 0.037 vs champion 0.042"
+      },
+      {
+        "when": "2023-09-02",
+        "version": "v003",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2023-09-02",
+        "version": "v003",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2023-09-10",
+        "version": "v003",
+        "event": "rejected",
+        "reason": "shadow 0.038 vs champion 0.038"
+      },
+      {
+        "when": "2023-09-30",
+        "version": "v004",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-09-30",
+        "version": "v004",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-10-08",
+        "version": "v004",
+        "event": "promoted",
+        "reason": "shadow 0.023 vs champion 0.030"
+      },
+      {
+        "when": "2023-10-13",
+        "version": "v004",
+        "event": "rolled_back",
+        "reason": "live MAPE 0.024 vs previous champion 0.017"
+      },
+      {
+        "when": "2023-11-28",
+        "version": "v005",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-11-28",
+        "version": "v005",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-12-06",
+        "version": "v005",
+        "event": "promoted",
+        "reason": "shadow 0.017 vs champion 0.019"
+      },
+      {
+        "when": "2023-12-26",
+        "version": "v006",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-12-26",
+        "version": "v006",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-03",
+        "version": "v006",
+        "event": "promoted",
+        "reason": "shadow 0.018 vs champion 0.019"
+      },
+      {
+        "when": "2024-01-23",
+        "version": "v007",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-23",
+        "version": "v007",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-31",
+        "version": "v007",
+        "event": "promoted",
+        "reason": "shadow 0.014 vs champion 0.029"
+      },
+      {
+        "when": "2024-02-20",
+        "version": "v008",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-02-20",
+        "version": "v008",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-02-28",
+        "version": "v008",
+        "event": "rejected",
+        "reason": "shadow 0.034 vs champion 0.030"
+      },
+      {
+        "when": "2024-03-19",
+        "version": "v009",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-03-19",
+        "version": "v009",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-03-27",
+        "version": "v009",
+        "event": "rejected",
+        "reason": "shadow 0.024 vs champion 0.019"
+      },
+      {
+        "when": "2024-06-07",
+        "version": "v010",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-06-07",
+        "version": "v010",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-06-15",
+        "version": "v010",
+        "event": "promoted",
+        "reason": "shadow 0.054 vs champion 0.061"
+      },
+      {
+        "when": "2024-07-05",
+        "version": "v011",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-07-05",
+        "version": "v011",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-07-13",
+        "version": "v011",
+        "event": "promoted",
+        "reason": "shadow 0.040 vs champion 0.049"
+      },
+      {
+        "when": "2024-07-27",
+        "version": "v012",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.36)"
+      },
+      {
+        "when": "2024-07-27",
+        "version": "v012",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.36)"
+      },
+      {
+        "when": "2024-08-04",
+        "version": "v012",
+        "event": "promoted",
+        "reason": "shadow 0.032 vs champion 0.038"
+      },
+      {
+        "when": "2024-08-12",
+        "version": "v013",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2024-08-12",
+        "version": "v013",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2024-08-20",
+        "version": "v013",
+        "event": "promoted",
+        "reason": "shadow 0.034 vs champion 0.038"
+      },
+      {
+        "when": "2024-09-09",
+        "version": "v014",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-09-09",
+        "version": "v014",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-09-17",
+        "version": "v014",
+        "event": "promoted",
+        "reason": "shadow 0.030 vs champion 0.033"
+      },
+      {
+        "when": "2024-09-22",
+        "version": "v014",
+        "event": "rolled_back",
+        "reason": "live MAPE 0.050 vs previous champion 0.020"
+      },
+      {
+        "when": "2024-10-07",
+        "version": "v015",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-10-07",
+        "version": "v015",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-10-15",
+        "version": "v015",
+        "event": "rejected",
+        "reason": "shadow 0.082 vs champion 0.073"
+      },
+      {
+        "when": "2024-10-18",
+        "version": "v016",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.29)"
+      },
+      {
+        "when": "2024-10-18",
+        "version": "v016",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.29)"
+      },
+      {
+        "when": "2024-10-26",
+        "version": "v016",
+        "event": "rejected",
+        "reason": "shadow 0.048 vs champion 0.048"
+      },
+      {
+        "when": "2024-10-26",
+        "version": "v017",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.44)"
+      },
+      {
+        "when": "2024-10-26",
+        "version": "v017",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.44)"
+      },
+      {
+        "when": "2024-11-03",
+        "version": "v017",
+        "event": "rejected",
+        "reason": "shadow 0.026 vs champion 0.024"
+      },
+      {
+        "when": "2024-12-28",
+        "version": "v018",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.22)"
+      },
+      {
+        "when": "2024-12-28",
+        "version": "v018",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.22)"
+      },
+      {
+        "when": "2025-01-05",
+        "version": "v018",
+        "event": "promoted",
+        "reason": "shadow 0.023 vs champion 0.037"
+      },
+      {
+        "when": "2025-01-25",
+        "version": "v019",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-01-25",
+        "version": "v019",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-02-02",
+        "version": "v019",
+        "event": "rejected",
+        "reason": "shadow 0.026 vs champion 0.026"
+      },
+      {
+        "when": "2025-02-22",
+        "version": "v020",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-02-22",
+        "version": "v020",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-03-02",
+        "version": "v020",
+        "event": "promoted",
+        "reason": "shadow 0.016 vs champion 0.018"
+      },
+      {
+        "when": "2025-03-22",
+        "version": "v021",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-03-22",
+        "version": "v021",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-03-30",
+        "version": "v021",
+        "event": "promoted",
+        "reason": "shadow 0.022 vs champion 0.031"
+      },
+      {
+        "when": "2025-04-19",
+        "version": "v022",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-04-19",
+        "version": "v022",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-04-27",
+        "version": "v022",
+        "event": "rejected",
+        "reason": "shadow 0.036 vs champion 0.033"
+      },
+      {
+        "when": "2025-05-17",
+        "version": "v023",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-05-17",
+        "version": "v023",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-05-25",
+        "version": "v023",
+        "event": "promoted",
+        "reason": "shadow 0.031 vs champion 0.036"
+      },
+      {
+        "when": "2025-06-14",
+        "version": "v024",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-06-14",
+        "version": "v024",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-06-22",
+        "version": "v024",
+        "event": "rejected",
+        "reason": "shadow 0.033 vs champion 0.021"
+      },
+      {
+        "when": "2025-07-12",
+        "version": "v025",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-07-12",
+        "version": "v025",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-07-20",
+        "version": "v025",
+        "event": "promoted",
+        "reason": "shadow 0.032 vs champion 0.035"
+      },
+      {
+        "when": "2025-08-09",
+        "version": "v026",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-08-09",
+        "version": "v026",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-08-17",
+        "version": "v026",
+        "event": "rejected",
+        "reason": "shadow 0.050 vs champion 0.040"
+      }
+    ]
+  },
+  {
+    "policy": "Bijuli without data contracts",
+    "mape": 3.521106529213709,
+    "worst_week_mape": 389.1249612796779,
+    "cost_npr_m_per_day": 1047.1744559644128,
+    "trainings": 86,
+    "promotions": 10,
+    "rollbacks": 4,
+    "days_refused": 0,
+    "days_on_buggy_model": 0,
+    "events": [
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "registered",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-01",
+        "version": "v001",
+        "event": "promoted",
+        "reason": "initial model"
+      },
+      {
+        "when": "2023-07-29",
+        "version": "v002",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-07-29",
+        "version": "v002",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-08-06",
+        "version": "v002",
+        "event": "promoted",
+        "reason": "shadow 0.037 vs champion 0.042"
+      },
+      {
+        "when": "2023-09-02",
+        "version": "v003",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2023-09-02",
+        "version": "v003",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.21)"
+      },
+      {
+        "when": "2023-09-10",
+        "version": "v003",
+        "event": "rejected",
+        "reason": "shadow 0.038 vs champion 0.038"
+      },
+      {
+        "when": "2023-09-30",
+        "version": "v004",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-09-30",
+        "version": "v004",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-10-08",
+        "version": "v004",
+        "event": "promoted",
+        "reason": "shadow 0.023 vs champion 0.030"
+      },
+      {
+        "when": "2023-10-13",
+        "version": "v004",
+        "event": "rolled_back",
+        "reason": "live MAPE 0.024 vs previous champion 0.017"
+      },
+      {
+        "when": "2023-11-28",
+        "version": "v005",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-11-28",
+        "version": "v005",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-12-06",
+        "version": "v005",
+        "event": "promoted",
+        "reason": "shadow 0.017 vs champion 0.019"
+      },
+      {
+        "when": "2023-12-26",
+        "version": "v006",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2023-12-26",
+        "version": "v006",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-03",
+        "version": "v006",
+        "event": "promoted",
+        "reason": "shadow 0.018 vs champion 0.019"
+      },
+      {
+        "when": "2024-01-23",
+        "version": "v007",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-23",
+        "version": "v007",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2024-01-31",
+        "version": "v007",
+        "event": "promoted",
+        "reason": "shadow 0.014 vs champion 0.029"
+      },
+      {
+        "when": "2024-09-12",
+        "version": "v008",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 2716.80)"
+      },
+      {
+        "when": "2024-09-12",
+        "version": "v008",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 2716.80)"
+      },
+      {
+        "when": "2024-09-20",
+        "version": "v008",
+        "event": "rejected",
+        "reason": "shadow 0.036 vs champion 0.032"
+      },
+      {
+        "when": "2024-11-22",
+        "version": "v009",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 2714.91)"
+      },
+      {
+        "when": "2024-11-22",
+        "version": "v009",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 2714.91)"
+      },
+      {
+        "when": "2024-11-30",
+        "version": "v009",
+        "event": "rejected",
+        "reason": "shadow 0.854 vs champion 0.015"
+      },
+      {
+        "when": "2025-01-25",
+        "version": "v010",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 2712.57)"
+      },
+      {
+        "when": "2025-01-25",
+        "version": "v010",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 2712.57)"
+      },
+      {
+        "when": "2025-02-02",
+        "version": "v010",
+        "event": "rejected",
+        "reason": "shadow 0.069 vs champion 0.029"
+      },
+      {
+        "when": "2025-02-23",
+        "version": "v011",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 2711.28)"
+      },
+      {
+        "when": "2025-02-23",
+        "version": "v011",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 2711.28)"
+      },
+      {
+        "when": "2025-03-03",
+        "version": "v011",
+        "event": "promoted",
+        "reason": "shadow 0.026 vs champion 0.027"
+      },
+      {
+        "when": "2025-03-08",
+        "version": "v011",
+        "event": "rolled_back",
+        "reason": "live MAPE 0.040 vs previous champion 0.034"
+      },
+      {
+        "when": "2025-03-17",
+        "version": "v012",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.23)"
+      },
+      {
+        "when": "2025-03-17",
+        "version": "v012",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.23)"
+      },
+      {
+        "when": "2025-03-25",
+        "version": "v012",
+        "event": "promoted",
+        "reason": "shadow 0.028 vs champion 0.033"
+      },
+      {
+        "when": "2025-05-09",
+        "version": "v013",
+        "event": "registered",
+        "reason": "bias drift (CUSUM 0.20)"
+      },
+      {
+        "when": "2025-05-09",
+        "version": "v013",
+        "event": "shadow",
+        "reason": "bias drift (CUSUM 0.20)"
+      },
+      {
+        "when": "2025-05-17",
+        "version": "v013",
+        "event": "rejected",
+        "reason": "shadow 0.027 vs champion 0.026"
+      },
+      {
+        "when": "2025-06-06",
+        "version": "v014",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-06-06",
+        "version": "v014",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-06-14",
+        "version": "v014",
+        "event": "promoted",
+        "reason": "shadow 0.025 vs champion 0.031"
+      },
+      {
+        "when": "2025-06-19",
+        "version": "v014",
+        "event": "rolled_back",
+        "reason": "live MAPE 0.019 vs previous champion 0.015"
+      },
+      {
+        "when": "2025-07-04",
+        "version": "v015",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-07-04",
+        "version": "v015",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-07-12",
+        "version": "v015",
+        "event": "promoted",
+        "reason": "shadow 0.025 vs champion 0.029"
+      },
+      {
+        "when": "2025-07-17",
+        "version": "v015",
+        "event": "rolled_back",
+        "reason": "live MAPE 0.043 vs previous champion 0.033"
+      },
+      {
+        "when": "2025-08-01",
+        "version": "v016",
+        "event": "registered",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-08-01",
+        "version": "v016",
+        "event": "shadow",
+        "reason": "schedule"
+      },
+      {
+        "when": "2025-08-09",
+        "version": "v016",
+        "event": "promoted",
+        "reason": "shadow 0.035 vs champion 0.042"
+      }
+    ]
+  }
+]

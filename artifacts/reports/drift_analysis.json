@@ -1,0 +1,82 @@
+{
+  "level_shift_static_model": {
+    "2024-11-20 (+60 MW)": {
+      "mape_week_before": 0.022582561030112507,
+      "mape_day_of": 0.060925891904795804,
+      "mape_day_after": 0.018305217038723103,
+      "mape_days_2_to_7": 0.021225938410725027
+    },
+    "2025-04-10 (+45 MW)": {
+      "mape_week_before": 0.04875777777274732,
+      "mape_day_of": 0.13488562164737788,
+      "mape_day_after": 0.04691550073364115,
+      "mape_days_2_to_7": 0.05252729880954989
+    }
+  },
+  "bias_by_band_static_model": {
+    "2023-H2": {
+      "00-05 night": -0.0056,
+      "06-16 day": -0.0064,
+      "17-18 peak": -0.0095,
+      "19-23 evening": -0.0064
+    },
+    "2024-H1": {
+      "00-05 night": -0.0101,
+      "06-16 day": -0.0117,
+      "17-18 peak": -0.0119,
+      "19-23 evening": -0.0133
+    },
+    "2024-H2": {
+      "00-05 night": -0.0148,
+      "06-16 day": -0.0164,
+      "17-18 peak": -0.02,
+      "19-23 evening": -0.017
+    },
+    "2025-H1": {
+      "00-05 night": -0.0207,
+      "06-16 day": -0.0257,
+      "17-18 peak": -0.0246,
+      "19-23 evening": -0.0264
+    },
+    "2025-H2": {
+      "00-05 night": -0.0086,
+      "06-16 day": -0.0099,
+      "17-18 peak": -0.0112,
+      "19-23 evening": -0.0094
+    }
+  },
+  "ev_mean_mw_by_year": {
+    "2022": 8.1,
+    "2023": 14.3,
+    "2024": 25.3,
+    "2025": 40.2
+  },
+  "psi_vs_training_year_share_of_windows_above_0.25": {
+    "d1_mean": 1.0,
+    "fc_ktm_tmean": 1.0,
+    "fc_apparent_terai": 1.0,
+    "morning_ratio": 0.79,
+    "lag_w_ratio": 0.96
+  },
+  "psi_vs_training_year_median": {
+    "d1_mean": 5.08,
+    "fc_ktm_tmean": 4.13,
+    "fc_apparent_terai": 3.54,
+    "morning_ratio": 0.67,
+    "lag_w_ratio": 1.35
+  },
+  "psi_vs_same_season_last_year_share_of_windows_above_0.25": {
+    "d1_mean": 1.0,
+    "fc_ktm_tmean": 1.0,
+    "fc_apparent_terai": 1.0,
+    "morning_ratio": 0.96,
+    "lag_w_ratio": 1.0
+  },
+  "psi_vs_same_season_last_year_median": {
+    "d1_mean": 5.65,
+    "fc_ktm_tmean": 1.87,
+    "fc_apparent_terai": 2.08,
+    "morning_ratio": 0.99,
+    "lag_w_ratio": 1.75
+  }
+}

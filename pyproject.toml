@@ -1,0 +1,18 @@
+[project]
+name = "bijuli"
+version = "1.0.0"
+description = "Day-ahead electricity demand forecasting for Nepal's grid, run as a monitored, self-retraining service"
+requires-python = ">=3.12"
+readme = "README.md"
+license = {text = "MIT"}
+
+[tool.ruff]
+line-length = 140
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "S"]
+ignore = ["S101", "S301"]  # asserts in tests; joblib loads only our own models from our own bucket
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
