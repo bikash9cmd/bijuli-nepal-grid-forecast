@@ -1,0 +1,9 @@
+# Runtime (pinned: the numbers in the README were produced with exactly these)
+pandas==3.0.6
+numpy==2.5.4
+scikit-learn==1.9.1
+lightgbm==4.7.0
+pyarrow==26.0.0
+nepali-datetime==1.0.8.5
+joblib
+boto3==1.43.116

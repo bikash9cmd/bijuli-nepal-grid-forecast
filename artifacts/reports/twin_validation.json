@@ -1,0 +1,379 @@
+{
+  "calibration_fy2081_82": [
+    {
+      "bs_month": "Shrawan",
+      "nea_energy_gwh": 1311,
+      "twin_energy_gwh": 1357,
+      "nea_peak_mw": 2192,
+      "twin_peak_mw": 2207
+    },
+    {
+      "bs_month": "Bhadra",
+      "nea_energy_gwh": 1293,
+      "twin_energy_gwh": 1307,
+      "nea_peak_mw": 2183,
+      "twin_peak_mw": 2230
+    },
+    {
+      "bs_month": "Ashwin",
+      "nea_energy_gwh": 1131,
+      "twin_energy_gwh": 1112,
+      "nea_peak_mw": 2337,
+      "twin_peak_mw": 2222
+    },
+    {
+      "bs_month": "Kartik",
+      "nea_energy_gwh": 963,
+      "twin_energy_gwh": 1021,
+      "nea_peak_mw": 1946,
+      "twin_peak_mw": 1959
+    },
+    {
+      "bs_month": "Mangsir",
+      "nea_energy_gwh": 995,
+      "twin_energy_gwh": 980,
+      "nea_peak_mw": 2001,
+      "twin_peak_mw": 1955
+    },
+    {
+      "bs_month": "Poush",
+      "nea_energy_gwh": 1061,
+      "twin_energy_gwh": 1077,
+      "nea_peak_mw": 2091,
+      "twin_peak_mw": 2218
+    },
+    {
+      "bs_month": "Magh",
+      "nea_energy_gwh": 1067,
+      "twin_energy_gwh": 1097,
+      "nea_peak_mw": 2032,
+      "twin_peak_mw": 2110
+    },
+    {
+      "bs_month": "Falgun",
+      "nea_energy_gwh": 1013,
+      "twin_energy_gwh": 1008,
+      "nea_peak_mw": 1991,
+      "twin_peak_mw": 2012
+    },
+    {
+      "bs_month": "Chaitra",
+      "nea_energy_gwh": 1136,
+      "twin_energy_gwh": 1151,
+      "nea_peak_mw": 2045,
+      "twin_peak_mw": 2046
+    },
+    {
+      "bs_month": "Baishakh",
+      "nea_energy_gwh": 1268,
+      "twin_energy_gwh": 1267,
+      "nea_peak_mw": 2223,
+      "twin_peak_mw": 2288
+    },
+    {
+      "bs_month": "Jestha",
+      "nea_energy_gwh": 1355,
+      "twin_energy_gwh": 1379,
+      "nea_peak_mw": 2409,
+      "twin_peak_mw": 2429
+    },
+    {
+      "bs_month": "Ashadh",
+      "nea_energy_gwh": 1472,
+      "twin_energy_gwh": 1427,
+      "nea_peak_mw": 2214,
+      "twin_peak_mw": 2507
+    }
+  ],
+  "days": 40,
+  "energy_mape": 0.02813658303878792,
+  "energy_bias": 0.008651316043537206,
+  "energy_corr": 0.8164075990751337,
+  "peak_mape": 0.024497944433351154,
+  "peak_bias": 0.0038105730680391887,
+  "peak_corr": 0.833406833788709,
+  "real_peak_time_range": "17:40-18:10",
+  "twin_peak_hour_range": "17:00-18:59",
+  "daily": [
+    {
+      "date": "2024-12-03",
+      "energy_requirement_mwh": 33788,
+      "energy_mwh": 32606.0,
+      "peak_requirement_mw": 1782,
+      "peak_mw": 1752.0
+    },
+    {
+      "date": "2024-12-04",
+      "energy_requirement_mwh": 35421,
+      "energy_mwh": 32328.0,
+      "peak_requirement_mw": 1891,
+      "peak_mw": 1760.0
+    },
+    {
+      "date": "2024-12-05",
+      "energy_requirement_mwh": 34204,
+      "energy_mwh": 33331.0,
+      "peak_requirement_mw": 1847,
+      "peak_mw": 1804.0
+    },
+    {
+      "date": "2024-12-06",
+      "energy_requirement_mwh": 34392,
+      "energy_mwh": 33170.0,
+      "peak_requirement_mw": 1865,
+      "peak_mw": 1785.0
+    },
+    {
+      "date": "2024-12-07",
+      "energy_requirement_mwh": 32142,
+      "energy_mwh": 31055.0,
+      "peak_requirement_mw": 1751,
+      "peak_mw": 1721.0
+    },
+    {
+      "date": "2024-12-08",
+      "energy_requirement_mwh": 32808,
+      "energy_mwh": 34174.0,
+      "peak_requirement_mw": 1888,
+      "peak_mw": 1846.0
+    },
+    {
+      "date": "2024-12-09",
+      "energy_requirement_mwh": 33497,
+      "energy_mwh": 34878.0,
+      "peak_requirement_mw": 1827,
+      "peak_mw": 1884.0
+    },
+    {
+      "date": "2024-12-10",
+      "energy_requirement_mwh": 33721,
+      "energy_mwh": 35365.0,
+      "peak_requirement_mw": 1870,
+      "peak_mw": 1930.0
+    },
+    {
+      "date": "2024-12-11",
+      "energy_requirement_mwh": 34677,
+      "energy_mwh": 35673.0,
+      "peak_requirement_mw": 1938,
+      "peak_mw": 1955.0
+    },
+    {
+      "date": "2024-12-12",
+      "energy_requirement_mwh": 34685,
+      "energy_mwh": 35426.0,
+      "peak_requirement_mw": 1883,
+      "peak_mw": 1942.0
+    },
+    {
+      "date": "2024-12-13",
+      "energy_requirement_mwh": 34248,
+      "energy_mwh": 35516.0,
+      "peak_requirement_mw": 1891,
+      "peak_mw": 1917.0
+    },
+    {
+      "date": "2024-12-14",
+      "energy_requirement_mwh": 34232,
+      "energy_mwh": 33469.0,
+      "peak_requirement_mw": 1884,
+      "peak_mw": 1857.0
+    },
+    {
+      "date": "2024-12-15",
+      "energy_requirement_mwh": 35316,
+      "energy_mwh": 35779.0,
+      "peak_requirement_mw": 2001,
+      "peak_mw": 1933.0
+    },
+    {
+      "date": "2024-12-16",
+      "energy_requirement_mwh": 35993,
+      "energy_mwh": 35238.0,
+      "peak_requirement_mw": 1948,
+      "peak_mw": 1908.0
+    },
+    {
+      "date": "2024-12-17",
+      "energy_requirement_mwh": 35714,
+      "energy_mwh": 36586.0,
+      "peak_requirement_mw": 2002,
+      "peak_mw": 1995.0
+    },
+    {
+      "date": "2024-12-18",
+      "energy_requirement_mwh": 36409,
+      "energy_mwh": 36559.0,
+      "peak_requirement_mw": 1978,
+      "peak_mw": 1988.0
+    },
+    {
+      "date": "2024-12-19",
+      "energy_requirement_mwh": 36315,
+      "energy_mwh": 36889.0,
+      "peak_requirement_mw": 1981,
+      "peak_mw": 2008.0
+    },
+    {
+      "date": "2024-12-20",
+      "energy_requirement_mwh": 36118,
+      "energy_mwh": 37000.0,
+      "peak_requirement_mw": 1966,
+      "peak_mw": 2001.0
+    },
+    {
+      "date": "2024-12-21",
+      "energy_requirement_mwh": 35454,
+      "energy_mwh": 35396.0,
+      "peak_requirement_mw": 1916,
+      "peak_mw": 1973.0
+    },
+    {
+      "date": "2024-12-22",
+      "energy_requirement_mwh": 36219,
+      "energy_mwh": 37450.0,
+      "peak_requirement_mw": 1983,
+      "peak_mw": 2026.0
+    },
+    {
+      "date": "2024-12-23",
+      "energy_requirement_mwh": 36039,
+      "energy_mwh": 36991.0,
+      "peak_requirement_mw": 2034,
+      "peak_mw": 2016.0
+    },
+    {
+      "date": "2024-12-24",
+      "energy_requirement_mwh": 38551,
+      "energy_mwh": 37511.0,
+      "peak_requirement_mw": 2041,
+      "peak_mw": 2062.0
+    },
+    {
+      "date": "2024-12-25",
+      "energy_requirement_mwh": 36508,
+      "energy_mwh": 36194.0,
+      "peak_requirement_mw": 1951,
+      "peak_mw": 1952.0
+    },
+    {
+      "date": "2024-12-26",
+      "energy_requirement_mwh": 37214,
+      "energy_mwh": 37157.0,
+      "peak_requirement_mw": 2069,
+      "peak_mw": 2036.0
+    },
+    {
+      "date": "2024-12-27",
+      "energy_requirement_mwh": 37241,
+      "energy_mwh": 36960.0,
+      "peak_requirement_mw": 2020,
+      "peak_mw": 1990.0
+    },
+    {
+      "date": "2024-12-28",
+      "energy_requirement_mwh": 35531,
+      "energy_mwh": 34673.0,
+      "peak_requirement_mw": 1914,
+      "peak_mw": 1911.0
+    },
+    {
+      "date": "2024-12-29",
+      "energy_requirement_mwh": 36287,
+      "energy_mwh": 36225.0,
+      "peak_requirement_mw": 1990,
+      "peak_mw": 1974.0
+    },
+    {
+      "date": "2024-12-30",
+      "energy_requirement_mwh": 37042,
+      "energy_mwh": 37279.0,
+      "peak_requirement_mw": 2022,
+      "peak_mw": 2031.0
+    },
+    {
+      "date": "2024-12-31",
+      "energy_requirement_mwh": 37252,
+      "energy_mwh": 37972.0,
+      "peak_requirement_mw": 1979,
+      "peak_mw": 2076.0
+    },
+    {
+      "date": "2025-01-01",
+      "energy_requirement_mwh": 37203,
+      "energy_mwh": 37810.0,
+      "peak_requirement_mw": 2000,
+      "peak_mw": 2046.0
+    },
+    {
+      "date": "2025-01-02",
+      "energy_requirement_mwh": 36178,
+      "energy_mwh": 37933.0,
+      "peak_requirement_mw": 2007,
+      "peak_mw": 2061.0
+    },
+    {
+      "date": "2025-01-03",
+      "energy_requirement_mwh": 37296,
+      "energy_mwh": 36687.0,
+      "peak_requirement_mw": 2037,
+      "peak_mw": 1990.0
+    },
+    {
+      "date": "2025-01-04",
+      "energy_requirement_mwh": 35836,
+      "energy_mwh": 34374.0,
+      "peak_requirement_mw": 2030,
+      "peak_mw": 1872.0
+    },
+    {
+      "date": "2025-01-05",
+      "energy_requirement_mwh": 36964,
+      "energy_mwh": 38287.0,
+      "peak_requirement_mw": 2037,
+      "peak_mw": 2073.0
+    },
+    {
+      "date": "2025-01-06",
+      "energy_requirement_mwh": 35490,
+      "energy_mwh": 37395.0,
+      "peak_requirement_mw": 1992,
+      "peak_mw": 2045.0
+    },
+    {
+      "date": "2025-01-07",
+      "energy_requirement_mwh": 36890,
+      "energy_mwh": 38540.0,
+      "peak_requirement_mw": 2036,
+      "peak_mw": 2101.0
+    },
+    {
+      "date": "2025-01-08",
+      "energy_requirement_mwh": 37175,
+      "energy_mwh": 38677.0,
+      "peak_requirement_mw": 2091,
+      "peak_mw": 2094.0
+    },
+    {
+      "date": "2025-01-09",
+      "energy_requirement_mwh": 37937,
+      "energy_mwh": 40064.0,
+      "peak_requirement_mw": 2067,
+      "peak_mw": 2218.0
+    },
+    {
+      "date": "2025-01-10",
+      "energy_requirement_mwh": 37589,
+      "energy_mwh": 39282.0,
+      "peak_requirement_mw": 2025,
+      "peak_mw": 2159.0
+    },
+    {
+      "date": "2025-01-11",
+      "energy_requirement_mwh": 35435,
+      "energy_mwh": 35736.0,
+      "peak_requirement_mw": 1928,
+      "peak_mw": 1986.0
+    }
+  ]
+}

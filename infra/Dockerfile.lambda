@@ -1,0 +1,8 @@
+# One image for every Lambda function; each function picks its handler with ImageConfig.Command.
+# Container image instead of a zip: pandas + LightGBM + scikit-learn are over the 250 MB zip limit.
+FROM public.ecr.aws/lambda/python:3.12-arm64
+RUN dnf install -y libgomp && dnf clean all
+COPY requirements.txt ${LAMBDA_TASK_ROOT}/
+RUN pip install --no-cache-dir -r ${LAMBDA_TASK_ROOT}/requirements.txt
+COPY bijuli ${LAMBDA_TASK_ROOT}/bijuli
+CMD ["bijuli.aws.handlers.forecast"]

@@ -1,0 +1,538 @@
+AWSTemplateFormatVersion: "2010-09-09"
+Transform: AWS::Serverless-2016-10-31
+Description: >
+  Bijuli - day-ahead electricity demand forecasts for Nepal's grid, with drift-triggered retraining,
+  shadow rollout and automatic rollback. Designed for ap-south-1 (Mumbai), the closest region to Nepal.
+
+Parameters:
+  AlertEmail:
+    Type: String
+    Description: Where forecasts, refusals and model events are sent
+  MonthlyBudgetUsd:
+    Type: Number
+    Default: 15
+  TrainingImageUri:
+    Type: String
+    Description: ECR image for the SageMaker training job (same code, train_entry.py as entry point)
+
+Globals:
+  Function:
+    Architectures: [arm64]
+    MemorySize: 1024
+    Timeout: 120
+    Tracing: Active
+    LoggingConfig:
+      LogFormat: JSON
+    Environment:
+      Variables:
+        BUCKET: !Ref DataBucket
+        FORECAST_TABLE: !Ref ForecastTable
+        STATE_TABLE: !Ref StateTable
+        CHAMPION_PARAM: !Ref ChampionParam
+        SHADOW_PARAM: !Ref ShadowParam
+        TOPIC_ARN: !Ref AlertTopic
+
+Resources:
+  # ---------------------------------------------------------------- storage
+  DataBucket:
+    Type: AWS::S3::Bucket
+    Properties:
+      BucketEncryption:
+        ServerSideEncryptionConfiguration:
+          - ServerSideEncryptionByDefault: {SSEAlgorithm: AES256}
+      PublicAccessBlockConfiguration:
+        BlockPublicAcls: true
+        BlockPublicPolicy: true
+        IgnorePublicAcls: true
+        RestrictPublicBuckets: true
+      VersioningConfiguration: {Status: Enabled}
+      LifecycleConfiguration:
+        Rules:
+          - Id: raw-to-cold
+            Status: Enabled
+            Prefix: raw/
+            Transitions:
+              - {StorageClass: STANDARD_IA, TransitionInDays: 30}
+              - {StorageClass: GLACIER_IR, TransitionInDays: 180}
+          - Id: training-snapshots-expire
+            Status: Enabled
+            Prefix: training/
+            ExpirationInDays: 120
+          - Id: old-versions
+            Status: Enabled
+            NoncurrentVersionExpiration: {NoncurrentDays: 30}
+
+  ForecastTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - {AttributeName: target_day, AttributeType: S}
+        - {AttributeName: version, AttributeType: S}
+      KeySchema:
+        - {AttributeName: target_day, KeyType: HASH}
+        - {AttributeName: version, KeyType: RANGE}
+      PointInTimeRecoverySpecification: {PointInTimeRecoveryEnabled: true}
+      SSESpecification: {SSEEnabled: true}
+
+  StateTable:
+    Type: AWS::DynamoDB::Table
+    Properties:
+      BillingMode: PAY_PER_REQUEST
+      AttributeDefinitions:
+        - {AttributeName: pk, AttributeType: S}
+      KeySchema:
+        - {AttributeName: pk, KeyType: HASH}
+      PointInTimeRecoverySpecification: {PointInTimeRecoveryEnabled: true}
+      SSESpecification: {SSEEnabled: true}
+
+  ChampionParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /bijuli/champion
+      Type: String
+      Value: none
+      Description: Model version that buys power. Promotion and rollback are one write to this value.
+
+  ShadowParam:
+    Type: AWS::SSM::Parameter
+    Properties:
+      Name: /bijuli/shadow
+      Type: String
+      Value: none
+      Description: Challenger forecasting silently alongside the champion
+
+  AlertTopic:
+    Type: AWS::SNS::Topic
+    # No SSE: EventBridge cannot publish to a topic encrypted with the AWS-managed SNS key, and a
+    # customer-managed key would add $1/month (+60%) to protect messages that hold no secrets.
+    Properties:
+      Subscription:
+        - {Protocol: email, Endpoint: !Ref AlertEmail}
+
+  # Refusals, promotions, rejections and rollbacks reach a human by email.
+  ModelEventsRule:
+    Type: AWS::Events::Rule
+    Properties:
+      EventPattern:
+        source: [bijuli]
+        detail-type: [ForecastRefused, ModelPromote, ModelReject, ModelRollback]
+      Targets:
+        - {Arn: !Ref AlertTopic, Id: alerts}
+
+  AlertTopicPolicy:
+    Type: AWS::SNS::TopicPolicy
+    Properties:
+      Topics: [!Ref AlertTopic]
+      PolicyDocument:
+        Statement:
+          - Effect: Allow
+            Principal: {Service: events.amazonaws.com}
+            Action: sns:Publish
+            Resource: !Ref AlertTopic
+            Condition:
+              ArnEquals: {aws:SourceArn: !GetAtt ModelEventsRule.Arn}
+
+  FailureQueue:
+    Type: AWS::SQS::Queue
+    Properties:
+      MessageRetentionPeriod: 1209600
+      SqsManagedSseEnabled: true
+
+  # ---------------------------------------------------------------- functions
+  IngestFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageConfig: {Command: ["bijuli.aws.handlers.ingest"]}
+      Policies:
+        - S3CrudPolicy: {BucketName: !Ref DataBucket}
+        - CloudWatchPutMetricPolicy: {}
+    Metadata: &image
+      DockerTag: py312
+      DockerContext: ..
+      Dockerfile: infra/Dockerfile.lambda
+
+  ForecastFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageConfig: {Command: ["bijuli.aws.handlers.forecast"]}
+      MemorySize: 2048
+      Policies:
+        - S3ReadPolicy: {BucketName: !Ref DataBucket}
+        - DynamoDBWritePolicy: {TableName: !Ref ForecastTable}
+        - SSMParameterReadPolicy: {ParameterName: bijuli/*}
+        - SNSPublishMessagePolicy: {TopicName: !GetAtt AlertTopic.TopicName}
+        - EventBridgePutEventsPolicy: {EventBusName: default}
+    Metadata: *image
+
+  MonitorFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageConfig: {Command: ["bijuli.aws.handlers.monitor_daily"]}
+      Policies:
+        - S3ReadPolicy: {BucketName: !Ref DataBucket}
+        - DynamoDBReadPolicy: {TableName: !Ref ForecastTable}
+        - DynamoDBCrudPolicy: {TableName: !Ref StateTable}
+        - SSMParameterReadPolicy: {ParameterName: bijuli/*}
+        - SSMParameterWithSlashPrefixReadPolicy: {ParameterName: /bijuli/*}
+        - Statement:
+            - Effect: Allow
+              Action: ssm:PutParameter
+              Resource:
+                - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/bijuli/champion
+                - !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/bijuli/shadow
+        - CloudWatchPutMetricPolicy: {}
+        - EventBridgePutEventsPolicy: {EventBusName: default}
+    Metadata: *image
+
+  BuildDatasetFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageConfig: {Command: ["bijuli.aws.handlers.build_dataset"]}
+      MemorySize: 2048
+      Timeout: 300
+      Policies:
+        - S3CrudPolicy: {BucketName: !Ref DataBucket}
+    Metadata: *image
+
+  PublishModelFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageConfig: {Command: ["bijuli.aws.handlers.publish_model"]}
+      Policies:
+        - S3CrudPolicy: {BucketName: !Ref DataBucket}
+    Metadata: *image
+
+  OfflineGateFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageConfig: {Command: ["bijuli.aws.handlers.offline_gate"]}
+      Policies:
+        - S3CrudPolicy: {BucketName: !Ref DataBucket}
+        - DynamoDBReadPolicy: {TableName: !Ref StateTable}
+        - SSMParameterReadPolicy: {ParameterName: bijuli/*}
+    Metadata: *image
+
+  RegisterShadowFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageConfig: {Command: ["bijuli.aws.handlers.register_shadow"]}
+      Policies:
+        - DynamoDBCrudPolicy: {TableName: !Ref StateTable}
+        - Statement:
+            - Effect: Allow
+              Action: ssm:PutParameter
+              Resource: !Sub arn:${AWS::Partition}:ssm:${AWS::Region}:${AWS::AccountId}:parameter/bijuli/shadow
+    Metadata: *image
+
+  ApiFunction:
+    Type: AWS::Serverless::Function
+    Properties:
+      PackageType: Image
+      ImageConfig: {Command: ["bijuli.aws.handlers.api"]}
+      MemorySize: 512
+      Timeout: 10
+      Policies:
+        - DynamoDBReadPolicy: {TableName: !Ref ForecastTable}
+      Events:
+        Get:
+          Type: HttpApi
+          Properties:
+            Path: /forecast/{day}
+            Method: GET
+    Metadata: *image
+
+  # ---------------------------------------------------------------- daily state machine (10:00 NPT)
+  DailyStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      Type: STANDARD
+      Tracing: {Enabled: true}
+      Policies:
+        - LambdaInvokePolicy: {FunctionName: !Ref IngestFunction}
+        - LambdaInvokePolicy: {FunctionName: !Ref ForecastFunction}
+        - LambdaInvokePolicy: {FunctionName: !Ref MonitorFunction}
+        - SNSPublishMessagePolicy: {TopicName: !GetAtt AlertTopic.TopicName}
+      Events:
+        Daily:
+          Type: ScheduleV2
+          Properties:
+            ScheduleExpression: cron(0 10 * * ? *)
+            ScheduleExpressionTimezone: Asia/Kathmandu
+            RetryPolicy: {MaximumRetryAttempts: 2}
+            DeadLetterConfig: {Arn: !GetAtt FailureQueue.Arn}
+      Definition:
+        StartAt: Ingest
+        States:
+          Ingest:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters:
+              FunctionName: !Ref IngestFunction
+              Payload:
+                date.$: States.ArrayGetItem(States.StringSplit($$.Execution.StartTime, 'T'), 0)
+            ResultPath: $.ingest
+            Retry: &retry
+              - ErrorEquals: [States.TaskFailed, Lambda.ServiceException, Lambda.TooManyRequestsException]
+                IntervalSeconds: 30
+                BackoffRate: 2
+                MaxAttempts: 3
+            Catch: &alert
+              - ErrorEquals: [States.ALL]
+                Next: Alert
+                ResultPath: $.error
+            Next: Forecast
+          Forecast:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters:
+              FunctionName: !Ref ForecastFunction
+              Payload:
+                issue_day.$: States.ArrayGetItem(States.StringSplit($$.Execution.StartTime, 'T'), 0)
+            ResultPath: $.forecast
+            Retry: *retry
+            Catch: *alert
+            Next: Monitor
+          Monitor:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters:
+              FunctionName: !Ref MonitorFunction
+              Payload:
+                issue_day.$: States.ArrayGetItem(States.StringSplit($$.Execution.StartTime, 'T'), 0)
+            ResultPath: $.monitor
+            Retry: *retry
+            Catch: *alert
+            End: true
+          Alert:
+            Type: Task
+            Resource: arn:aws:states:::sns:publish
+            Parameters:
+              TopicArn: !Ref AlertTopic
+              Subject: Bijuli daily run failed
+              Message.$: States.JsonToString($.error)
+            Next: Failed
+          Failed:
+            Type: Fail
+
+  # ---------------------------------------------------------------- retraining (on drift, schedule backstop)
+  TrainingRole:
+    Type: AWS::IAM::Role
+    Properties:
+      AssumeRolePolicyDocument:
+        Version: "2012-10-17"
+        Statement:
+          - Effect: Allow
+            Principal: {Service: sagemaker.amazonaws.com}
+            Action: sts:AssumeRole
+      Policies:
+        - PolicyName: training
+          PolicyDocument:
+            Version: "2012-10-17"
+            Statement:
+              - Effect: Allow
+                Action: [s3:GetObject, s3:PutObject, s3:ListBucket]
+                Resource: [!GetAtt DataBucket.Arn, !Sub "${DataBucket.Arn}/*"]
+              - Effect: Allow
+                Action: [ecr:GetAuthorizationToken, ecr:BatchGetImage, ecr:GetDownloadUrlForLayer,
+                         logs:CreateLogGroup, logs:CreateLogStream, logs:PutLogEvents, cloudwatch:PutMetricData]
+                Resource: "*"
+
+  RetrainStateMachine:
+    Type: AWS::Serverless::StateMachine
+    Properties:
+      Type: STANDARD
+      Tracing: {Enabled: true}
+      Policies:
+        - LambdaInvokePolicy: {FunctionName: !Ref BuildDatasetFunction}
+        - LambdaInvokePolicy: {FunctionName: !Ref PublishModelFunction}
+        - LambdaInvokePolicy: {FunctionName: !Ref OfflineGateFunction}
+        - LambdaInvokePolicy: {FunctionName: !Ref RegisterShadowFunction}
+        - SNSPublishMessagePolicy: {TopicName: !GetAtt AlertTopic.TopicName}
+        - Statement:
+            - Effect: Allow
+              Action: [sagemaker:CreateTrainingJob, sagemaker:DescribeTrainingJob, sagemaker:StopTrainingJob,
+                       sagemaker:AddTags]
+              Resource: !Sub arn:${AWS::Partition}:sagemaker:${AWS::Region}:${AWS::AccountId}:training-job/bijuli-*
+            - Effect: Allow
+              Action: [events:PutTargets, events:PutRule, events:DescribeRule]
+              Resource: !Sub arn:${AWS::Partition}:events:${AWS::Region}:${AWS::AccountId}:rule/StepFunctionsGetEventsForSageMakerTrainingJobsRule
+            - Effect: Allow
+              Action: iam:PassRole
+              Resource: !GetAtt TrainingRole.Arn
+      Events:
+        Every4Weeks:
+          Type: ScheduleV2
+          Properties:
+            ScheduleExpression: rate(28 days)
+            Input: '{"reason": "scheduled"}'
+            RetryPolicy: {MaximumRetryAttempts: 1}
+            DeadLetterConfig: {Arn: !GetAtt FailureQueue.Arn}
+        OnDrift:
+          Type: EventBridgeRule
+          Properties:
+            Pattern:
+              source: [bijuli]
+              detail-type: [RetrainRequested]
+            InputPath: $.detail
+      Definition:
+        StartAt: BuildDataset
+        States:
+          BuildDataset:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters:
+              FunctionName: !Ref BuildDatasetFunction
+              Payload.$: $
+            ResultSelector: {"issue_day.$": $.Payload.issue_day, "train_s3.$": $.Payload.train_s3}
+            Next: Train
+          Train:
+            Type: Task
+            Resource: arn:aws:states:::sagemaker:createTrainingJob.sync
+            Parameters:
+              TrainingJobName.$: States.Format('bijuli-{}', $$.Execution.Name)
+              RoleArn: !GetAtt TrainingRole.Arn
+              AlgorithmSpecification:
+                TrainingImage: !Ref TrainingImageUri
+                TrainingInputMode: File
+              InputDataConfig:
+                - ChannelName: train
+                  DataSource:
+                    S3DataSource:
+                      S3DataType: S3Prefix
+                      S3Uri.$: $.train_s3
+              OutputDataConfig:
+                S3OutputPath: !Sub s3://${DataBucket}/training-output/
+              ResourceConfig: {InstanceType: ml.m5.large, InstanceCount: 1, VolumeSizeInGB: 5}
+              EnableManagedSpotTraining: true
+              StoppingCondition: {MaxRuntimeInSeconds: 1800, MaxWaitTimeInSeconds: 7200}
+            ResultSelector:
+              "model_artifact.$": $.ModelArtifacts.S3ModelArtifacts
+              "version.$": $.TrainingJobName
+            ResultPath: $.training
+            Next: Publish
+          Publish:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters:
+              FunctionName: !Ref PublishModelFunction
+              Payload:
+                version.$: $.training.version
+                model_artifact.$: $.training.model_artifact
+                issue_day.$: $.issue_day
+            ResultSelector: {"version.$": $.Payload.version, "issue_day.$": $.Payload.issue_day}
+            Next: OfflineGate
+          OfflineGate:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters: {FunctionName: !Ref OfflineGateFunction, Payload.$: $}
+            ResultSelector: {"version.$": $.Payload.version, "issue_day.$": $.Payload.issue_day, "passed.$": $.Payload.passed}
+            Next: Passed
+          Passed:
+            Type: Choice
+            Choices:
+              - Variable: $.passed
+                BooleanEquals: true
+                Next: RegisterShadow
+            Default: Rejected
+          RegisterShadow:
+            Type: Task
+            Resource: arn:aws:states:::lambda:invoke
+            Parameters: {FunctionName: !Ref RegisterShadowFunction, Payload.$: $}
+            End: true
+          Rejected:
+            Type: Task
+            Resource: arn:aws:states:::sns:publish
+            Parameters:
+              TopicArn: !Ref AlertTopic
+              Subject: Bijuli candidate rejected by offline gate
+              Message.$: States.JsonToString($)
+            End: true
+
+  # ---------------------------------------------------------------- alarms and cost guard
+  NoScoreAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: No forecast was scored for 2 days - the daily run is silently not happening
+      Namespace: Bijuli
+      MetricName: DailyMAPE
+      Statistic: SampleCount
+      Period: 86400
+      EvaluationPeriods: 2
+      Threshold: 1
+      ComparisonOperator: LessThanThreshold
+      TreatMissingData: breaching
+      AlarmActions: [!Ref AlertTopic]
+
+  BiasAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: CUSUM on daily bias crossed the drift threshold
+      Namespace: Bijuli
+      MetricName: CusumMax
+      Statistic: Maximum
+      Period: 86400
+      EvaluationPeriods: 1
+      Threshold: 0.2
+      ComparisonOperator: GreaterThanThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref AlertTopic]
+
+  DailyRunFailedAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      Namespace: AWS/States
+      MetricName: ExecutionsFailed
+      Dimensions:
+        - {Name: StateMachineArn, Value: !Ref DailyStateMachine}
+      Statistic: Sum
+      Period: 3600
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      TreatMissingData: notBreaching
+      AlarmActions: [!Ref AlertTopic]
+
+  FailureQueueAlarm:
+    Type: AWS::CloudWatch::Alarm
+    Properties:
+      AlarmDescription: The scheduler could not start the daily run
+      Namespace: AWS/SQS
+      MetricName: ApproximateNumberOfMessagesVisible
+      Dimensions:
+        - {Name: QueueName, Value: !GetAtt FailureQueue.QueueName}
+      Statistic: Maximum
+      Period: 300
+      EvaluationPeriods: 1
+      Threshold: 1
+      ComparisonOperator: GreaterThanOrEqualToThreshold
+      AlarmActions: [!Ref AlertTopic]
+
+  Budget:
+    Type: AWS::Budgets::Budget
+    Properties:
+      Budget:
+        BudgetType: COST
+        TimeUnit: MONTHLY
+        BudgetLimit: {Amount: !Ref MonthlyBudgetUsd, Unit: USD}
+        CostFilters:
+          TagKeyValue: ["user:project$bijuli"]
+      NotificationsWithSubscribers:
+        - Notification: {NotificationType: ACTUAL, ComparisonOperator: GREATER_THAN, Threshold: 80}
+          Subscribers:
+            - {SubscriptionType: EMAIL, Address: !Ref AlertEmail}
+
+Outputs:
+  ApiUrl:
+    Value: !Sub https://${ServerlessHttpApi}.execute-api.${AWS::Region}.amazonaws.com/forecast/
+  Bucket:
+    Value: !Ref DataBucket
+  DailyStateMachineArn:
+    Value: !Ref DailyStateMachine
