@@ -60,6 +60,9 @@ def check_weather(daily: pd.DataFrame) -> list[Finding]:
     imputed = int(daily.get("terai_imputed", pd.Series(dtype=bool)).sum())
     if imputed:
         findings.append(Finding("terai_missing", imputed * 24, "no Terai station reported; afternoon temperature estimated from Kathmandu"))
+    if "ktm_tmean" not in daily:
+        findings.append(Finding("kathmandu_missing", len(daily) * 24, "Kathmandu daily mean column absent from the feed"))
+        return findings
     missing = int(daily["ktm_tmean"].isna().sum())
     if missing:
         findings.append(Finding("kathmandu_missing", missing * 24, "Kathmandu daily mean missing"))
@@ -67,6 +70,13 @@ def check_weather(daily: pd.DataFrame) -> list[Finding]:
 
 
 def freshness_ok(load: pd.Series, issue_time: pd.Timestamp, max_lag_hours: int = 3) -> bool:
-    """At issue time (10:00) the feed must reach at least 06:00 today, or the morning signal is stale."""
+    """At issue time (10:00) the feed must reach at least 06:00 today, or the morning signal is stale.
+
+    A last reading after the issue time is not fresh either: it means a clock or time zone fault
+    (UTC written as Nepal time puts readings 5h45m in the future), so the feed cannot be trusted.
+    """
     last = load.dropna().index.max()
-    return last is not pd.NaT and (issue_time - last) <= pd.Timedelta(hours=max_lag_hours + 1)
+    if last is pd.NaT:
+        return False
+    lag = issue_time - last
+    return pd.Timedelta(0) <= lag <= pd.Timedelta(hours=max_lag_hours + 1)
