@@ -63,3 +63,35 @@ def test_flatline_and_spike_are_caught():
     assert checks["flatline"] == 6 and clean.iloc[50:56].isna().all()
     assert checks["spike"] == 1 and np.isnan(clean.iloc[100])
     assert clean.iloc[57:99].notna().all()
+
+
+def test_freshness_needs_the_morning_hours():
+    load = synthetic_load(days=3)
+    issue = pd.Timestamp(load.index[-1].normalize() + pd.Timedelta(hours=10))
+    assert contracts.freshness_ok(load[: issue - pd.Timedelta(hours=4)], issue)  # reaches 06:00
+    assert not contracts.freshness_ok(load[: issue - pd.Timedelta(hours=6)], issue)  # stops at 04:00
+    assert not contracts.freshness_ok(load * np.nan, issue)  # nothing reported at all
+
+
+def test_future_stamped_feed_is_not_fresh():
+    load = synthetic_load(days=3)
+    issue = pd.Timestamp(load.index[-1].normalize() + pd.Timedelta(hours=10))
+    shifted = load[: issue - pd.Timedelta(hours=4)].copy()
+    shifted.index = shifted.index + pd.Timedelta(hours=5, minutes=45)  # UTC labelled as Nepal time
+    assert not contracts.freshness_ok(shifted, issue)
+
+
+def test_weather_findings_report_estimates_and_gaps():
+    days = pd.date_range("2024-01-01", periods=5, freq="D")
+    daily = pd.DataFrame({"ktm_tmean": [10.0, np.nan, 11.0, 12.0, 9.0],
+                          "terai_imputed": [False, True, True, False, False]}, index=days)
+    found = {f.check: f.hours for f in contracts.check_weather(daily)}
+    assert found == {"terai_missing": 48, "kathmandu_missing": 24}
+    assert contracts.check_weather(daily.drop(columns="terai_imputed")) == [
+        f for f in contracts.check_weather(daily) if f.check == "kathmandu_missing"]
+
+
+def test_weather_without_kathmandu_column_is_a_finding_not_a_crash():
+    days = pd.date_range("2024-01-01", periods=2, freq="D")
+    found = contracts.check_weather(pd.DataFrame({"terai_imputed": [False, False]}, index=days))
+    assert [(f.check, f.hours) for f in found] == [("kathmandu_missing", 48)]
