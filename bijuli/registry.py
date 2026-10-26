@@ -67,7 +67,13 @@ class Registry:
         self._save()
 
     def promote(self, version: str, when: str, reason: str) -> None:
+        if version not in self.index["cards"]:
+            raise KeyError(f"unknown model version {version!r}")
         old = self.index["champion"]
+        if version == old:
+            # Re-promoting the champion would archive it and make it its own rollback target,
+            # losing the real previous champion.
+            raise ValueError(f"{version} is already the champion")
         if old:
             self.index["cards"][old]["status"] = "archived"
         self.index["previous_champion"] = old

@@ -1,5 +1,6 @@
 import numpy as np
 import pandas as pd
+import pytest
 
 from bijuli import monitor
 from bijuli.models import QuantileForecaster, bid_from_quantiles, frame_hash
@@ -62,3 +63,17 @@ def test_registry_promotion_and_rollback_round_trip(tmp_path):
     again = Registry(tmp_path)  # survives a restart
     assert again.load("v001") == {"m": 1}
     assert [e["event"] for e in again.events()][-1] in {"rolled_back", "promoted"}
+
+
+def test_promote_refuses_unknown_versions_and_the_current_champion(tmp_path):
+    r = Registry(tmp_path, persist_models=False)
+    r.register({"m": 1}, _card("v001"))
+    r.promote("v001", "2025-01-01", "initial")
+    r.register({"m": 2}, _card("v002"))
+    r.promote("v002", "2025-02-01", "shadow won")
+    with pytest.raises(KeyError, match="v009"):
+        r.promote("v009", "2025-02-02", "typo")
+    with pytest.raises(ValueError, match="already the champion"):
+        r.promote("v002", "2025-02-02", "re-run")
+    assert r.champion() == "v002" and r.card("v002")["status"] == "champion"  # nothing half-applied
+    assert r.rollback("2025-02-06", "live MAPE worse") == "v001"  # rollback target survived
