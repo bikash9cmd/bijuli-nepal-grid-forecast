@@ -1,5 +1,7 @@
 # Bijuli (बिजुली): day-ahead electricity demand forecasts for Nepal's grid, kept good for years
 
+[![Try it live](https://img.shields.io/badge/Try_it-live-2ea44f?style=for-the-badge)](https://bijuli-nepal-grid-forecast.onrender.com)
+
 Every morning, Nepal Electricity Authority's Load Dispatch Centre decides how much power to buy from India's day-ahead market for tomorrow, and bids close at 12:15. Bijuli forecasts national demand for each hour of tomorrow at 10:00. It also gives an honest uncertainty band and a purchase basis tilted by what a shortfall costs. Then, with no one retraining it by hand, it keeps that forecast good while demand grows, new industrial feeders connect and EVs spread. It does that without letting a broken model buy power.
 
 The model is the small part of this project. **The MLOps is the project:** data contracts, a model registry, shadow rollout, automatic rollback and drift monitoring, measured over 26 months of simulated daily operations with real faults injected. The design is a serverless AWS stack costing about **$1.63 a month** (designed and tested against mocked AWS, not deployed).
@@ -133,6 +135,16 @@ A daily Step Functions run is triggered at 10:00 Nepal time by EventBridge Sched
 | Performance efficiency | Batch inference once a day. Forecasts are precomputed, so the API is a DynamoDB query |
 | Cost optimisation | Scales to zero. SageMaker managed spot for training. Graviton (arm64) Lambdas. HTTP API. Budget alarm. About $1.63 a month |
 | Sustainability | No idle compute. Retraining frequency set by measurement, not by habit. 250 trees, because 400 bought nothing |
+
+## Try it live
+
+**[https://bijuli-nepal-grid-forecast.onrender.com](https://bijuli-nepal-grid-forecast.onrender.com)**
+
+Pick a day and see the hourly demand forecast with its uncertainty band and purchase basis against the grid twin, then compare the six retraining policies over 26 months of simulated operations.
+
+It runs on a free server that sleeps when nobody is using it, so the first visit can take a minute to wake up. Everything runs offline: no API keys, no cloud account.
+
+To run the same page locally: `pip install -r requirements-app.txt` and then `streamlit run app.py`.
 
 ## Run it
 
