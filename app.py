@@ -13,12 +13,13 @@ from pathlib import Path
 import pandas as pd
 import streamlit as st
 
+import brand
 from bijuli import features, weather
 from bijuli.__main__ import _inputs
 from bijuli.config import REGISTRY_DIR, REPORTS
 from bijuli.registry import Registry
 
-st.set_page_config(page_title="Bijuli", page_icon="⚡", layout="wide")
+brand.page("bijuli")
 
 
 @st.cache_resource(show_spinner="Fetching NOAA weather and training the model (first visit only)...")
@@ -40,8 +41,6 @@ def load():
 
 frame, demand, model, version, card = load()
 
-st.title("Bijuli (बिजुली)")
-st.caption("Day-ahead electricity demand forecasts for Nepal's grid, with an honest uncertainty band and a purchase basis.")
 
 forecast_tab, ops_tab, twin_tab = st.tabs(["Day-ahead forecast", "26 months of operations", "The grid twin"])
 
@@ -107,3 +106,5 @@ with twin_tab:
         p = Path("docs/img") / name
         if p.exists():
             st.image(str(p))
+
+brand.footer()
